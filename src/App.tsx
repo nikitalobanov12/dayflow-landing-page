@@ -64,7 +64,7 @@ function App() {
 			platform: 'windows',
 			name: 'Windows',
 			icon: <WindowsIcon className='w-8 h-8' />,
-			filename: 'dayflow_0.1.0_x64-setup.exe',
+			filename: 'dayflow_0.1.0_x64_en-US.msi',
 			size: '3 MB',
 			description: 'Windows 10/11 installer',
 		},
