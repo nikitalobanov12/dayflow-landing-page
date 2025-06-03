@@ -8,7 +8,7 @@ import { motion } from 'motion/react';
 import './App.css';
 
 // Define platform types for downloads
-type Platform = 'windows' | 'macos' | 'linux';
+type Platform = 'windows' | 'macos' | 'linux' | 'ios';
 
 interface DownloadOption {
 	platform: Platform;
@@ -46,7 +46,11 @@ function App() {
 	// Auto-detect user's operating system
 	useEffect(() => {
 		const userAgent = navigator.userAgent.toLowerCase();
-		if (userAgent.includes('mac')) {
+		const isIOS = /ipad|iphone|ipod/.test(userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+
+		if (isIOS) {
+			setDetectedPlatform('ios');
+		} else if (userAgent.includes('mac')) {
 			setDetectedPlatform('macos');
 		} else if (userAgent.includes('linux')) {
 			setDetectedPlatform('linux');
@@ -256,22 +260,54 @@ function App() {
 						animate={{ y: 0, opacity: 1 }}
 						transition={{ duration: 0.8, delay: 1.8, ease: 'easeOut' }}
 					>
-						<motion.div
-							whileHover={{ scale: 1.05 }}
-							whileTap={{ scale: 0.95 }}
-						>
-							<Button
-								size='lg'
-								asChild
-								className='text-lg px-8 py-6'
+						{detectedPlatform === 'ios' ? (
+							// iOS Not Available Message
+							<motion.div
+								className='text-center'
+								whileHover={{ scale: 1.02 }}
 							>
-								<a href={getDownloadUrl(primaryDownload?.filename || downloadOptions[0].filename)}>
-									{primaryDownload?.icon}
-									<span className='ml-2'>Download for {primaryDownload?.name}</span>
-									<ArrowRight className='h-5 w-5 ml-2' />
-								</a>
-							</Button>
-						</motion.div>
+								<div className='bg-muted/50 border border-border rounded-lg p-6 max-w-md'>
+									<div className='flex items-center justify-center mb-3'>
+										<AppleIcon className='w-8 h-8 text-muted-foreground' />
+									</div>
+									<h3 className='font-semibold mb-2'>iOS App Coming Soon</h3>
+									<p className='text-sm text-muted-foreground mb-4'>DayFlow is currently available for desktop platforms. We're working on bringing this productivity experience to iOS.</p>
+									<Button
+										variant='outline'
+										asChild
+										className='w-full'
+									>
+										<a
+											href='https://github.com/nikitalobanov12/dayflow'
+											target='_blank'
+											rel='noopener noreferrer'
+										>
+											<Github className='h-4 w-4 mr-2' />
+											Follow Updates
+										</a>
+									</Button>
+								</div>
+							</motion.div>
+						) : (
+							// Regular Download Button
+							<motion.div
+								whileHover={{ scale: 1.05 }}
+								whileTap={{ scale: 0.95 }}
+							>
+								<Button
+									size='lg'
+									asChild
+									className='text-lg px-8 py-6'
+								>
+									<a href={getDownloadUrl(primaryDownload?.filename || downloadOptions[0].filename)}>
+										{primaryDownload?.icon}
+										<span className='ml-2'>Download for {primaryDownload?.name}</span>
+										<ArrowRight className='h-5 w-5 ml-2' />
+									</a>
+								</Button>
+							</motion.div>
+						)}
+
 						<motion.div
 							whileHover={{ scale: 1.05 }}
 							whileTap={{ scale: 0.95 }}
@@ -300,7 +336,7 @@ function App() {
 						animate={{ opacity: 1 }}
 						transition={{ duration: 0.6, delay: 2.0, ease: 'easeOut' }}
 					>
-						{primaryDownload?.size} • {primaryDownload?.description}
+						{detectedPlatform === 'ios' ? 'Available for Windows, macOS, and Linux' : `${primaryDownload?.size} • ${primaryDownload?.description}`}
 					</motion.p>
 				</div>
 			</section>
@@ -537,96 +573,216 @@ function App() {
 						<p className='text-xl text-muted-foreground max-w-2xl mx-auto'>Choose the right version for your operating system. All versions include the same powerful features with native performance optimization.</p>
 					</motion.div>
 
-					<div className='grid md:grid-cols-3 gap-6 max-w-4xl mx-auto'>
-						{downloadOptions.map((option, index) => (
+					{detectedPlatform === 'ios' ? (
+						// Special message for iOS users
+						<motion.div
+							className='max-w-2xl mx-auto text-center'
+							initial={{ opacity: 0, y: 50 }}
+							whileInView={{ opacity: 1, y: 0 }}
+							transition={{ duration: 0.8, ease: 'easeOut' }}
+							viewport={{ once: true, margin: '-100px' }}
+						>
 							<motion.div
-								key={option.platform}
-								initial={{ opacity: 0, y: 50 }}
-								whileInView={{ opacity: 1, y: 0 }}
-								transition={{
-									duration: 0.6,
-									delay: index * 0.1,
-									ease: 'easeOut',
-								}}
-								viewport={{ once: true, margin: '-50px' }}
+								className='bg-gradient-to-br from-primary/10 to-secondary/10 rounded-2xl p-8 mb-8'
 								whileHover={{
-									y: -10,
+									scale: 1.02,
 									transition: { duration: 0.3 },
 								}}
 							>
-								<Card className={`relative overflow-hidden transition-all duration-300 hover:shadow-xl h-full ${option.platform === detectedPlatform ? 'ring-2 ring-primary' : ''}`}>
-									{option.platform === detectedPlatform && (
-										<motion.div
-											initial={{ scale: 0, opacity: 0 }}
-											animate={{ scale: 1, opacity: 1 }}
-											transition={{ duration: 0.3, delay: 0.5 }}
+								<motion.div
+									className='h-20 w-20 flex items-center justify-center mx-auto mb-6'
+									initial={{ scale: 0 }}
+									whileInView={{ scale: 1 }}
+									transition={{ duration: 0.5, delay: 0.2, type: 'spring' }}
+									viewport={{ once: true }}
+								>
+									<AppleIcon className='w-16 h-16 text-primary' />
+								</motion.div>
+								<h3 className='text-2xl font-bold mb-4'>iOS App Coming Soon!</h3>
+								<p className='text-muted-foreground mb-6'>We're working hard to bring DayFlow to iOS. In the meantime, you can download our desktop app for your computer or follow us for updates.</p>
+								<motion.div
+									className='flex flex-col sm:flex-row gap-4 justify-center'
+									initial={{ opacity: 0, y: 20 }}
+									whileInView={{ opacity: 1, y: 0 }}
+									transition={{ duration: 0.6, delay: 0.4 }}
+									viewport={{ once: true }}
+								>
+									<motion.div
+										whileHover={{ scale: 1.05 }}
+										whileTap={{ scale: 0.95 }}
+									>
+										<Button
+											variant='outline'
+											size='lg'
+											asChild
+											className='text-lg px-8 py-6'
 										>
-											<Badge className='absolute top-4 right-4'>Recommended</Badge>
-										</motion.div>
-									)}
-									<CardHeader className='text-center'>
+											<a
+												href='https://github.com/nikitalobanov12/dayflow'
+												target='_blank'
+												rel='noopener noreferrer'
+											>
+												<Github className='h-5 w-5 mr-2' />
+												Follow Updates
+											</a>
+										</Button>
+									</motion.div>
+								</motion.div>
+							</motion.div>
+
+							<motion.div
+								initial={{ opacity: 0, y: 30 }}
+								whileInView={{ opacity: 1, y: 0 }}
+								transition={{ duration: 0.6, delay: 0.6 }}
+								viewport={{ once: true }}
+							>
+								<p className='text-sm text-muted-foreground mb-6'>Or download for your desktop:</p>
+								<div className='grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-3xl mx-auto'>
+									{downloadOptions.map((option, index) => (
 										<motion.div
-											className='h-16 w-16 flex items-center justify-center mx-auto mb-4'
+											key={option.platform}
+											initial={{ opacity: 0, y: 30 }}
+											whileInView={{ opacity: 1, y: 0 }}
+											transition={{
+												duration: 0.4,
+												delay: 0.7 + index * 0.1,
+												ease: 'easeOut',
+											}}
+											viewport={{ once: true }}
 											whileHover={{
-												scale: 1.1,
-												rotate: 5,
+												y: -5,
 												transition: { duration: 0.2 },
 											}}
 										>
-											{option.icon}
+											<Card className='h-full hover:shadow-lg transition-all duration-300'>
+												<CardContent className='text-center p-4'>
+													<motion.div
+														className='h-12 w-12 flex items-center justify-center mx-auto mb-3'
+														whileHover={{
+															scale: 1.1,
+															transition: { duration: 0.2 },
+														}}
+													>
+														{option.icon}
+													</motion.div>
+													<p className='font-medium mb-2'>{option.name}</p>
+													<motion.div
+														whileHover={{ scale: 1.05 }}
+														whileTap={{ scale: 0.95 }}
+													>
+														<Button
+															asChild
+															className='w-full'
+															size='sm'
+														>
+															<a href={getDownloadUrl(option.filename)}>
+																<Download className='h-4 w-4 mr-2' />
+																Download
+															</a>
+														</Button>
+													</motion.div>
+												</CardContent>
+											</Card>
 										</motion.div>
-										<CardTitle className='text-2xl'>{option.name}</CardTitle>
-										<CardDescription>{option.description}</CardDescription>
-									</CardHeader>
-									<CardContent className='text-center space-y-4'>
-										<div className='text-sm text-muted-foreground'>
-											<p>{option.size}</p>
-										</div>
-										<motion.div
-											whileHover={{ scale: 1.05 }}
-											whileTap={{ scale: 0.95 }}
-										>
-											<Button
-												asChild
-												className='w-full'
-												size='lg'
-											>
-												<a href={getDownloadUrl(option.filename)}>
-													<Download className='h-4 w-4 mr-2' />
-													Download
-												</a>
-											</Button>
-										</motion.div>
-									</CardContent>
-								</Card>
+									))}
+								</div>
 							</motion.div>
-						))}
-					</div>
-
-					{/* Additional Linux Option */}
-					<motion.div
-						className='mt-8 text-center'
-						initial={{ opacity: 0, y: 30 }}
-						whileInView={{ opacity: 1, y: 0 }}
-						transition={{ duration: 0.6, delay: 0.4, ease: 'easeOut' }}
-						viewport={{ once: true, margin: '-50px' }}
-					>
-						<p className='text-sm text-muted-foreground mb-4'>Linux users can also download the Debian package:</p>
-						<motion.div
-							whileHover={{ scale: 1.05 }}
-							whileTap={{ scale: 0.95 }}
-						>
-							<Button
-								variant='outline'
-								asChild
-							>
-								<a href={getDownloadUrl('dayflow_0.1.0_amd64.deb')}>
-									<Download className='h-4 w-4 mr-2' />
-									Download .deb (5.46 MB)
-								</a>
-							</Button>
 						</motion.div>
-					</motion.div>
+					) : (
+						// Regular download section for desktop platforms
+						<>
+							<div className='grid md:grid-cols-3 gap-6 max-w-4xl mx-auto'>
+								{downloadOptions.map((option, index) => (
+									<motion.div
+										key={option.platform}
+										initial={{ opacity: 0, y: 50 }}
+										whileInView={{ opacity: 1, y: 0 }}
+										transition={{
+											duration: 0.6,
+											delay: index * 0.1,
+											ease: 'easeOut',
+										}}
+										viewport={{ once: true, margin: '-50px' }}
+										whileHover={{
+											y: -10,
+											transition: { duration: 0.3 },
+										}}
+									>
+										<Card className={`relative overflow-hidden transition-all duration-300 hover:shadow-xl h-full ${option.platform === detectedPlatform ? 'ring-2 ring-primary' : ''}`}>
+											{option.platform === detectedPlatform && (
+												<motion.div
+													initial={{ scale: 0, opacity: 0 }}
+													animate={{ scale: 1, opacity: 1 }}
+													transition={{ duration: 0.3, delay: 0.5 }}
+												>
+													<Badge className='absolute top-4 right-4'>Recommended</Badge>
+												</motion.div>
+											)}
+											<CardHeader className='text-center'>
+												<motion.div
+													className='h-16 w-16 flex items-center justify-center mx-auto mb-4'
+													whileHover={{
+														scale: 1.1,
+														rotate: 5,
+														transition: { duration: 0.2 },
+													}}
+												>
+													{option.icon}
+												</motion.div>
+												<CardTitle className='text-2xl'>{option.name}</CardTitle>
+												<CardDescription>{option.description}</CardDescription>
+											</CardHeader>
+											<CardContent className='text-center space-y-4'>
+												<div className='text-sm text-muted-foreground'>
+													<p>{option.size}</p>
+												</div>
+												<motion.div
+													whileHover={{ scale: 1.05 }}
+													whileTap={{ scale: 0.95 }}
+												>
+													<Button
+														asChild
+														className='w-full'
+														size='lg'
+													>
+														<a href={getDownloadUrl(option.filename)}>
+															<Download className='h-4 w-4 mr-2' />
+															Download
+														</a>
+													</Button>
+												</motion.div>
+											</CardContent>
+										</Card>
+									</motion.div>
+								))}
+							</div>
+
+							{/* Additional Linux Option */}
+							<motion.div
+								className='mt-8 text-center'
+								initial={{ opacity: 0, y: 30 }}
+								whileInView={{ opacity: 1, y: 0 }}
+								transition={{ duration: 0.6, delay: 0.4, ease: 'easeOut' }}
+								viewport={{ once: true, margin: '-50px' }}
+							>
+								<p className='text-sm text-muted-foreground mb-4'>Linux users can also download the Debian package:</p>
+								<motion.div
+									whileHover={{ scale: 1.05 }}
+									whileTap={{ scale: 0.95 }}
+								>
+									<Button
+										variant='outline'
+										asChild
+									>
+										<a href={getDownloadUrl('dayflow_0.1.0_amd64.deb')}>
+											<Download className='h-4 w-4 mr-2' />
+											Download .deb (5.46 MB)
+										</a>
+									</Button>
+								</motion.div>
+							</motion.div>
+						</>
+					)}
 				</div>
 			</section>
 
