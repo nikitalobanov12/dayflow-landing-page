@@ -178,6 +178,20 @@ function App() {
 						<ThemeToggle />
 						<Button
 							asChild
+							variant='outline'
+							className='hidden sm:inline-flex hover-lift'
+						>
+							<a
+								href='https://dayflow-nine.vercel.app/'
+								target='_blank'
+								rel='noopener noreferrer'
+								aria-label='Sign in to DayFlow Web App'
+							>
+								Sign In
+							</a>
+						</Button>
+						<Button
+							asChild
 							className='hidden sm:inline-flex'
 						>
 							<a href={getDownloadUrl(primaryDownload?.filename || downloadOptions[0].filename)}>
@@ -189,7 +203,6 @@ function App() {
 				</div>
 			</motion.header>
 
-			{/* Hero Section */}
 			<section className='py-24 bg-gradient-to-b from-background to-muted/20'>
 				<div className='container mx-auto px-4 text-center'>
 					<motion.div
@@ -202,7 +215,7 @@ function App() {
 							className='mb-6'
 						>
 							<Star className='h-3 w-3 mr-1' />
-							Version 0.1.0 Available
+							Version 0.2.0 Available
 						</Badge>
 					</motion.div>
 
@@ -307,6 +320,28 @@ function App() {
 								</Button>
 							</motion.div>
 						)}
+
+						{/* Sign In Button */}
+						<motion.div
+							whileHover={{ scale: 1.05 }}
+							whileTap={{ scale: 0.95 }}
+						>
+							<Button
+								variant='secondary'
+								size='lg'
+								asChild
+								className='text-lg px-8 py-6'
+							>
+								<a
+									href='https://dayflow-nine.vercel.app/'
+									target='_blank'
+									rel='noopener noreferrer'
+								>
+									<Monitor className='h-5 w-5 mr-2' />
+									Try Web App
+								</a>
+							</Button>
+						</motion.div>
 
 						<motion.div
 							whileHover={{ scale: 1.05 }}
