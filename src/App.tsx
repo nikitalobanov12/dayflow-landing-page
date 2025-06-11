@@ -182,7 +182,7 @@ function App() {
 							className='hidden sm:inline-flex hover-lift'
 						>
 							<a
-								href='https://dayflow-nine.vercel.app/'
+								href='https://app.dayflow.ca'
 								target='_blank'
 								rel='noopener noreferrer'
 								aria-label='Sign in to DayFlow Web App'
@@ -333,7 +333,7 @@ function App() {
 								className='text-lg px-8 py-6'
 							>
 								<a
-									href='https://dayflow-nine.vercel.app/'
+									href='https://app.dayflow.ca/'
 									target='_blank'
 									rel='noopener noreferrer'
 								>
