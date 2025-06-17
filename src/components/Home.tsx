@@ -726,6 +726,16 @@ export function Home() {
 									Privacy Policy
 								</Link>
 							</motion.div>
+							<motion.div
+								whileHover={{ scale: 1.05, transition: { duration: 0.2 } }}
+							>
+								<Link
+									to='/terms-of-service'
+									className='text-muted-foreground hover:text-foreground transition-colors'
+								>
+									Terms of Service
+								</Link>
+							</motion.div>
 						</motion.div>
 					</div>
 				</div>
