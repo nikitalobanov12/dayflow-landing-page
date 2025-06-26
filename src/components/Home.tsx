@@ -24,7 +24,6 @@ import {
 	User
 } from 'lucide-react';
 import { motion } from 'motion/react';
-import { Link } from 'react-router-dom';
 
 // Define platform types for downloads
 type Platform = 'windows' | 'macos' | 'linux' | 'ios';
@@ -1067,22 +1066,23 @@ export function Home() {
 							<motion.div
 								whileHover={{ scale: 1.05, transition: { duration: 0.2 } }}
 							>
-								<Link
-									to='/privacy-policy'
-									className='text-muted-foreground hover:text-foreground transition-colors'
+								<motion.a
+									href='https://www.dayflow.ca/privacy-policy'
+
+										className='text-muted-foreground hover:text-foreground transition-colors'
 								>
 									Privacy Policy
-								</Link>
+								</motion.a>
 							</motion.div>
 							<motion.div
 								whileHover={{ scale: 1.05, transition: { duration: 0.2 } }}
 							>
-								<Link
-									to='/terms-of-service'
+								<motion.a
+									href='https://www.dayflow.ca/terms-of-service'
 									className='text-muted-foreground hover:text-foreground transition-colors'
 								>
 									Terms of Service
-								</Link>
+								</motion.a>
 							</motion.div>
 						</motion.div>
 					</div>
