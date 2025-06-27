@@ -99,6 +99,15 @@ export function PrivacyPolicy() {
 						<li>Read task lists and task data</li>
 					</ul>
 
+					<h4>Limited Use Disclosure</h4>
+					<p>
+						The use of information received from Google APIs will adhere to the{' '}
+						<a href="https://developers.google.com/terms/api-services-user-data-policy#limited-use_requiremen" target="_blank" rel="noopener noreferrer">
+							Google API Services User Data Policy
+						</a>
+						, including the Limited Use requirements.
+					</p>
+
 					<ul>
 						<li><strong>Data Shared:</strong> Task information marked for calendar sync, scheduled dates and times</li>
 						<li><strong>Permissions:</strong> Read-only access to calendars and tasks; event creation only when explicitly requested</li>
