@@ -181,8 +181,12 @@ export function Home() {
 							animate={{ opacity: 1, y: 0 }}
 							transition={{ duration: 0.8, ease: 'easeOut' }}
 						>
-							
-
+							{/* Product Hunt Tag */}
+							<div className="flex justify-center mb-6">
+								<a href="https://www.producthunt.com/products/dayflow-2?embed=true&utm_source=badge-featured&utm_medium=badge&utm_source=badge-dayflow-2" target="_blank" rel="noopener noreferrer">
+									<img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=985763&theme=dark&t=1751315403409" alt="DayFlow - Stop Planning Your Day Start Living It. | Product Hunt" className="producthunt-badge" width="250" height="54" />
+								</a>
+							</div>
 							<h1 className='text-3xl md:text-5xl lg:text-6xl font-bold mb-6 tracking-tight'>
 								<span className='text-foreground'>Turn Your Goals</span>
 								<br />

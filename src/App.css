@@ -70,3 +70,8 @@ button {
 		opacity: 1;
 	}
 }
+
+.producthunt-badge {
+	width: 250px;
+	height: 54px;
+}
