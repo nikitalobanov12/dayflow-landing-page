@@ -190,7 +190,7 @@ export function Home() {
 							</h1>
 
 							<p className='text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto leading-relaxed'>
-								DayFlow's AI Life Architect turns your scattered ambitions into a clear daily plan. Beat shiny object syndrome. Build momentum. Actually achieve your goals.
+								An AI that plans your days around your goals. Automatically schedules tasks, manages your calendar, and keeps you focused on what matters most. Stop planning and start executing.
 							</p>
 
 							<motion.div
@@ -228,16 +228,16 @@ export function Home() {
 								transition={{ duration: 0.6, delay: 0.5, ease: 'easeOut' }}
 							>
 								<div className='flex items-center gap-2'>
+									<Calendar className='h-4 w-4' />
+									<span>Google Calendar Integration</span>
+								</div>
+								<div className='flex items-center gap-2'>
+									<Zap className='h-4 w-4' />
+									<span>AI Task Scheduling</span>
+								</div>
+								<div className='flex items-center gap-2'>
 									<Target className='h-4 w-4' />
-									<span>Goal-driven planning</span>
-								</div>
-								<div className='flex items-center gap-2'>
-									<Zap className='h-4 w-4' />
-									<span>AI Life Architect</span>
-								</div>
-								<div className='flex items-center gap-2'>
-									<Zap className='h-4 w-4' />
-									<span>Instant clarity</span>
+									<span>Goal-Based Planning</span>
 								</div>
 							</motion.div>
 						</motion.div>
@@ -256,9 +256,9 @@ export function Home() {
 						viewport={{ once: true, margin: '-50px' }}
 					>
 						<Badge variant='secondary' className='mb-4'>Simple Process</Badge>
-						<h2 className='text-3xl md:text-4xl font-bold mb-4'>From Chaos to Clarity in 4 Steps</h2>
+						<h2 className='text-3xl md:text-4xl font-bold mb-4'>How DayFlow Works</h2>
 						<p className='text-xl text-muted-foreground max-w-3xl mx-auto'>
-							Stop overthinking your productivity system. DayFlow makes goal achievement automatic.
+							Connect your goals to your calendar. AI handles the planning, scheduling, and prioritization automatically.
 						</p>
 					</motion.div>
 
@@ -340,9 +340,9 @@ export function Home() {
 						viewport={{ once: true, margin: '-50px' }}
 					>
 						<Badge variant='secondary' className='mb-4'>Stop the Chaos</Badge>
-						<h2 className='text-3xl md:text-4xl font-bold mb-4'>Tired of Starting Over Every Monday?</h2>
+						<h2 className='text-3xl md:text-4xl font-bold mb-4'>Your Current Planning System vs DayFlow</h2>
 						<p className='text-xl text-muted-foreground max-w-3xl mx-auto'>
-							You're driven. You have big goals. But you keep getting distracted, switching between projects, and never finishing what you start.
+							Manual planning takes hours. You forget about goals. Tasks pile up without priority. DayFlow automates all of this.
 						</p>
 					</motion.div>
 
