@@ -184,9 +184,9 @@ export function Home() {
 							
 
 							<h1 className='text-3xl md:text-5xl lg:text-6xl font-bold mb-6 tracking-tight'>
-								<span className='text-foreground'>Stop Planning Your Day</span>
+								<span className='text-foreground'>Turn Your Goals</span>
 								<br />
-								<span className='bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent'>Start Living It.</span>
+								<span className='bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent'>Into Actions.</span>
 							</h1>
 
 							<p className='text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto leading-relaxed'>
