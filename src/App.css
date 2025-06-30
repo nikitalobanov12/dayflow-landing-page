@@ -3,10 +3,12 @@
 /* Custom styles for DayFlow landing page */
 html {
 	scroll-behavior: smooth;
+	overflow-x: hidden;
 }
 
 body {
 	font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+	overflow-x: hidden;
 }
 
 /* Smooth transitions for interactive elements */
@@ -27,35 +29,34 @@ button {
 }
 
 * {
-		scroll-behavior: smooth;
-		scrollbar-width: thin;
-		scrollbar-color: var(--foreground) var(--background);
-	}
+	scroll-behavior: smooth;
+	scrollbar-width: thin;
+	scrollbar-color: var(--foreground) var(--background);
+}
 
-	*::-webkit-scrollbar {
-		width: 8px;
-		height: 8px;
-	}
+*::-webkit-scrollbar {
+	width: 8px;
+	height: 8px;
+}
 
-	*::-webkit-scrollbar-track {
-		background: var(--background);
-		border-radius: 4px;
-	}
+*::-webkit-scrollbar-track {
+	background: var(--background);
+	border-radius: 4px;
+}
 
-	*::-webkit-scrollbar-thumb {
-		background: var(--foreground);
-		border-radius: 4px;
-		transition: background-color 0.2s ease;
-	}
+*::-webkit-scrollbar-thumb {
+	background: var(--foreground);
+	border-radius: 4px;
+	transition: background-color 0.2s ease;
+}
 
-	*:hover::-webkit-scrollbar-thumb {
-		background: var(--foreground);
-	}
+*:hover::-webkit-scrollbar-thumb {
+	background: var(--foreground);
+}
 
-	*::-webkit-scrollbar-thumb:hover {
-		background: var(--foreground);
-	}
-
+*::-webkit-scrollbar-thumb:hover {
+	background: var(--foreground);
+}
 
 /* Animation for the loading dots in hero */
 @keyframes bounce {

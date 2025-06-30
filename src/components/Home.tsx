@@ -11,8 +11,18 @@ import {
 	X
 } from 'lucide-react';
 import { motion } from 'motion/react';
+import { useState, useEffect } from 'react';
 
 export function Home() {
+	const [isMobile, setIsMobile] = useState(false);
+
+	useEffect(() => {
+		const checkMobile = () => setIsMobile(window.innerWidth < 768);
+		checkMobile();
+		window.addEventListener('resize', checkMobile);
+		return () => window.removeEventListener('resize', checkMobile);
+	}, []);
+
 	const problemsWithOldWay = [
 		{ icon: <X className='h-5 w-5' />, title: 'Endless task lists', description: 'Never-ending to-dos that pile up without progress' },
 		{ icon: <X className='h-5 w-5' />, title: 'Forgotten goals', description: 'Big dreams that get buried under daily busywork' },
@@ -96,10 +106,10 @@ export function Home() {
 				animate={{ y: 0, opacity: 1 }}
 				transition={{ duration: 0.6, ease: 'easeOut' }}
 			>
-				<div className='container mx-auto px-4 h-16 grid grid-cols-3 items-center'>
+				<div className="container mx-auto px-4 h-16 flex items-center justify-between md:grid md:grid-cols-3">
 					<motion.div
 						className='flex items-center gap-3'
-						initial={{ x: -20, opacity: 0 }}
+						initial={{ x: isMobile ? 0 : -20, opacity: 0 }}
 						animate={{ x: 0, opacity: 1 }}
 						transition={{ duration: 0.6, delay: 0.2, ease: 'easeOut' }}
 					>
@@ -149,7 +159,7 @@ export function Home() {
 					</motion.nav>
 					<motion.div
 						className='flex items-center gap-3 justify-end'
-						initial={{ x: 20, opacity: 0 }}
+						initial={{ x: isMobile ? 0 : 20, opacity: 0 }}
 						animate={{ x: 0, opacity: 1 }}
 						transition={{ duration: 0.6, delay: 0.4, ease: 'easeOut' }}
 					>
@@ -353,19 +363,25 @@ export function Home() {
 					<div className='grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto'>
 						{/* Old Way */}
 						<motion.div
-							initial={{ opacity: 0, x: -50 }}
+							initial={{ opacity: 0, x: isMobile ? 0 : -50 }}
 							whileInView={{ opacity: 1, x: 0 }}
 							transition={{ duration: 0.6, ease: 'easeOut' }}
 							viewport={{ once: true, margin: '-50px' }}
 						>
-							<div className='bg-red-50 dark:bg-red-950/20 rounded-xl p-8 border border-red-200 dark:border-red-800'>
-								<h3 className='text-xl font-bold mb-6 text-red-700 dark:text-red-400'>Your Current Struggle</h3>
+							<div 
+								className='rounded-xl p-8 border border-red-500 dark:border-red-800'
+								style={{ 
+									backgroundColor: 'var(--card)', 
+									color: 'var(--card-foreground)' 
+								}}
+							>
+								<h3 className='text-xl font-bold mb-6' style={{ color: 'var(--card-foreground)' }}>Your Current Struggle</h3>
 								<div className='space-y-4'>
 									{problemsWithOldWay.map((problem, index) => (
 										<motion.div
 											key={problem.title}
 											className='flex items-start gap-3'
-											initial={{ opacity: 0, x: -20 }}
+											initial={{ opacity: 0, x: isMobile ? 0 : -20 }}
 											whileInView={{ opacity: 1, x: 0 }}
 											transition={{
 												duration: 0.4,
@@ -376,8 +392,8 @@ export function Home() {
 										>
 											<div className='text-red-500 mt-1'>{problem.icon}</div>
 											<div>
-												<h4 className='font-semibold text-red-700 dark:text-red-400'>{problem.title}</h4>
-												<p className='text-red-600 dark:text-red-300 text-sm'>{problem.description}</p>
+												<h4 className='font-semibold' style={{ color: 'var(--card-foreground)' }}>{problem.title}</h4>
+												<p className='text-sm' style={{ color: 'var(--card-foreground)' }}>{problem.description}</p>
 											</div>
 										</motion.div>
 									))}
@@ -387,19 +403,25 @@ export function Home() {
 
 						{/* DayFlow Way */}
 						<motion.div
-							initial={{ opacity: 0, x: 50 }}
+							initial={{ opacity: 0, x: isMobile ? 0 : 50 }}
 							whileInView={{ opacity: 1, x: 0 }}
 							transition={{ duration: 0.6, ease: 'easeOut' }}
 							viewport={{ once: true, margin: '-50px' }}
 						>
-							<div className='bg-green-50 dark:bg-green-950/20 rounded-xl p-8 border border-green-200 dark:border-green-800'>
-								<h3 className='text-xl font-bold mb-6 text-green-700 dark:text-green-400'>With DayFlow</h3>
+							<div 
+								className='rounded-xl p-8 border border-green-500 dark:border-green-800'
+								style={{ 
+									backgroundColor: 'var(--card)', 
+									color: 'var(--card-foreground)' 
+								}}
+							>
+								<h3 className='text-xl font-bold mb-6' style={{ color: 'var(--card-foreground)' }}>With DayFlow</h3>
 								<div className='space-y-4'>
 									{dayflowSolutions.map((solution, index) => (
 										<motion.div
 											key={solution.title}
 											className='flex items-start gap-3'
-											initial={{ opacity: 0, x: 20 }}
+											initial={{ opacity: 0, x: isMobile ? 0 : 20 }}
 											whileInView={{ opacity: 1, x: 0 }}
 											transition={{
 												duration: 0.4,
@@ -410,8 +432,8 @@ export function Home() {
 										>
 											<div className='text-green-500 mt-1'>{solution.icon}</div>
 											<div>
-												<h4 className='font-semibold text-green-700 dark:text-green-400'>{solution.title}</h4>
-												<p className='text-green-600 dark:text-green-300 text-sm'>{solution.description}</p>
+												<h4 className='font-semibold' style={{ color: 'var(--card-foreground)' }}>{solution.title}</h4>
+												<p className='text-sm' style={{ color: 'var(--card-foreground)' }}>{solution.description}</p>
 											</div>
 										</motion.div>
 									))}
@@ -490,7 +512,7 @@ export function Home() {
 					<div className='grid lg:grid-cols-2 gap-12 items-center max-w-6xl mx-auto'>
 						<motion.div
 							className='relative'
-							initial={{ opacity: 0, x: -50 }}
+							initial={{ opacity: 0, x: isMobile ? 0 : -50 }}
 							whileInView={{ opacity: 1, x: 0 }}
 							transition={{ duration: 0.6, ease: 'easeOut' }}
 							viewport={{ once: true, margin: '-50px' }}
@@ -515,7 +537,7 @@ export function Home() {
 						</motion.div>
 
 						<motion.div
-							initial={{ opacity: 0, x: 50 }}
+							initial={{ opacity: 0, x: isMobile ? 0 : 50 }}
 							whileInView={{ opacity: 1, x: 0 }}
 							transition={{ duration: 0.6, ease: 'easeOut' }}
 							viewport={{ once: true, margin: '-50px' }}
@@ -546,7 +568,7 @@ export function Home() {
 									<motion.div
 										key={index}
 										className='flex items-center gap-3'
-										initial={{ opacity: 0, x: -20 }}
+										initial={{ opacity: 0, x: isMobile ? 0 : -20 }}
 										whileInView={{ opacity: 1, x: 0 }}
 										transition={{
 											duration: 0.4,
@@ -587,7 +609,7 @@ export function Home() {
 					<div className='grid md:grid-cols-2 gap-12 max-w-4xl mx-auto'>
 						<motion.div
 							className='bg-gradient-to-br from-primary/10 to-secondary/10 rounded-xl p-8 backdrop-blur border border-border/50 flex flex-col items-center justify-center'
-							initial={{ opacity: 0, x: -50 }}
+							initial={{ opacity: 0, x: 0 }}
 							whileInView={{ opacity: 1, x: 0 }}
 							transition={{ duration: 0.6, ease: 'easeOut' }}
 							viewport={{ once: true, margin: '-50px' }}
@@ -600,7 +622,7 @@ export function Home() {
 						</motion.div>
 						<motion.div
 							className='bg-gradient-to-br from-primary/10 to-secondary/10 rounded-xl p-8 backdrop-blur border border-border/50 flex flex-col items-center justify-center'
-							initial={{ opacity: 0, x: 50 }}
+							initial={{ opacity: 0, x: 0 }}
 							whileInView={{ opacity: 1, x: 0 }}
 							transition={{ duration: 0.6, ease: 'easeOut' }}
 							viewport={{ once: true, margin: '-50px' }}
@@ -711,7 +733,7 @@ export function Home() {
 										<motion.div
 											key={feature}
 											className='flex items-center gap-3'
-											initial={{ opacity: 0, x: -20 }}
+											initial={{ opacity: 0, x: isMobile ? 0 : -20 }}
 											whileInView={{ opacity: 1, x: 0 }}
 											transition={{
 												duration: 0.4,
@@ -806,7 +828,7 @@ export function Home() {
 					<div className='flex flex-col md:flex-row justify-between items-center gap-6'>
 						<motion.div
 							className='flex items-center gap-3'
-							initial={{ x: -20, opacity: 0 }}
+							initial={{ x: isMobile ? 0 : -20, opacity: 0 }}
 							whileInView={{ x: 0, opacity: 1 }}
 							transition={{ duration: 0.6, delay: 0.1, ease: 'easeOut' }}
 							viewport={{ once: true }}
@@ -821,7 +843,7 @@ export function Home() {
 
 						<motion.div
 							className='flex items-center gap-6'
-							initial={{ x: 20, opacity: 0 }}
+							initial={{ x: isMobile ? 0 : 20, opacity: 0 }}
 							whileInView={{ x: 0, opacity: 1 }}
 							transition={{ duration: 0.6, delay: 0.2, ease: 'easeOut' }}
 							viewport={{ once: true }}
