@@ -245,8 +245,92 @@ export function Home() {
 				</div>
 			</section>
 
+			{/* How It Works */}
+			<section className='py-24 bg-muted/30'>
+				<div className='container mx-auto px-4'>
+					<motion.div
+						className='text-center mb-16'
+						initial={{ opacity: 0, y: 30 }}
+						whileInView={{ opacity: 1, y: 0 }}
+						transition={{ duration: 0.6, ease: 'easeOut' }}
+						viewport={{ once: true, margin: '-50px' }}
+					>
+						<Badge variant='secondary' className='mb-4'>Simple Process</Badge>
+						<h2 className='text-3xl md:text-4xl font-bold mb-4'>From Chaos to Clarity in 4 Steps</h2>
+						<p className='text-xl text-muted-foreground max-w-3xl mx-auto'>
+							Stop overthinking your productivity system. DayFlow makes goal achievement automatic.
+						</p>
+					</motion.div>
+
+					<div className='grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto'>
+						{[
+							{
+								step: '01',
+								title: 'Define Your Ambitions',
+								description: 'Tell DayFlow what you want to achieve. Big goals, small goals, work goals, life goals.',
+								icon: <Target className='h-8 w-8' />
+							},
+							{
+								step: '02', 
+								title: 'AI Breaks It Down',
+								description: 'Our AI Life Architect automatically creates actionable tasks that move you toward your goals.',
+								icon: <Zap className='h-8 w-8' />
+							},
+							{
+								step: '03',
+								title: 'Smart Daily Schedule',
+								description: 'Get a personalized daily plan that fits your calendar and priorities. No more wondering what to work on.',
+								icon: <Calendar className='h-8 w-8' />
+							},
+							{
+								step: '04',
+								title: 'Execute & Win',
+								description: 'Follow your AI-generated plan. Watch your goals become inevitable as you build unstoppable momentum.',
+								icon: <Check className='h-8 w-8' />
+							}
+						].map((item, index) => (
+							<motion.div
+								key={item.step}
+								className='text-center'
+								initial={{ opacity: 0, y: 50 }}
+								whileInView={{ opacity: 1, y: 0 }}
+								transition={{
+									duration: 0.6,
+									delay: index * 0.1,
+									ease: 'easeOut',
+								}}
+								viewport={{ once: true, margin: '-50px' }}
+							>
+								<div className='relative mb-6'>
+									<div className='w-16 h-16 mx-auto bg-primary/10 rounded-full flex items-center justify-center text-primary mb-4'>
+										{item.icon}
+									</div>
+								</div>
+								<h3 className='text-xl font-bold mb-3'>{item.title}</h3>
+								<p className='text-muted-foreground leading-relaxed'>{item.description}</p>
+							</motion.div>
+						))}
+					</div>
+
+					<motion.div
+						className='text-center mt-12'
+						initial={{ opacity: 0, y: 30 }}
+						whileInView={{ opacity: 1, y: 0 }}
+						transition={{ duration: 0.6, delay: 0.5, ease: 'easeOut' }}
+						viewport={{ once: true, margin: '-50px' }}
+					>
+						<motion.div
+							whileHover={{ scale: 1.05 }}
+							whileTap={{ scale: 0.95 }}
+						>
+							
+						</motion.div>
+					</motion.div>
+				</div>
+			</section>
+
 			{/* Problem vs Solution */}
-			<section id='features' className='py-24 bg-muted/30'>
+			<section id='features' className='py-24'>
 				<div className='container mx-auto px-4'>
 					<motion.div
 						className='text-center mb-16'
@@ -437,11 +521,14 @@ export function Home() {
 								className='mb-4'
 							>
 								<Calendar className='h-3 w-3 mr-1' />
-								Smart Integration
+								Smart Integrations
 							</Badge>
-							<h2 className='text-3xl md:text-4xl font-bold mb-6'>Your Calendar, But Smarter</h2>
+							<h2 className='text-3xl md:text-4xl font-bold mb-6'>Your Schedule, Built by AI</h2>
 							<p className='text-lg text-muted-foreground mb-8 leading-relaxed'>
-								DayFlow doesn't just sync with Google Calendar—it transforms it. Your calendar becomes a goal-achieving machine that automatically prioritizes what matters most.
+								DayFlow connects with Google Calendar and Google Gemini to create tasks and generate your schedule for you—automatically. No more manual planning, no more endless tweaking.
+							</p>
+							<p className='text-lg text-primary font-semibold mb-8 leading-relaxed'>
+								What makes DayFlow different? It's not just AI—it's YOUR AI. Every plan is personalized to you, factoring in all your goals, habits, and priorities. You get a plug-and-play schedule that actually fits your life. No refinement required.
 							</p>
 							<div className='space-y-4'>
 								{[
@@ -449,6 +536,8 @@ export function Home() {
 									'Tasks with deadlines appear on your calendar automatically',
 									'Change something in DayFlow, it updates in Google Calendar instantly',
 									'Import all your Google Tasks and make them goal-driven',
+									'Google Gemini integration: generate tasks and plans with a single click',
+									'Plug-and-play schedule—no manual refinement needed',
 								].map((item, index) => (
 									<motion.div
 										key={index}
@@ -467,6 +556,56 @@ export function Home() {
 									</motion.div>
 								))}
 							</div>
+						</motion.div>
+					</div>
+				</div>
+			</section>
+
+			{/* AI Integration Section */}
+			<section className='py-24'>
+				<div className='container mx-auto px-4'>
+					<motion.div
+						className='text-center mb-16'
+						initial={{ opacity: 0, y: 30 }}
+						whileInView={{ opacity: 1, y: 0 }}
+						transition={{ duration: 0.6, ease: 'easeOut' }}
+						viewport={{ once: true, margin: '-50px' }}
+					>
+						<Badge variant='secondary' className='mb-4'>AI Integration</Badge>
+						<h2 className='text-3xl md:text-4xl font-bold mb-4'>AI That Knows You</h2>
+						<p className='text-xl text-muted-foreground max-w-3xl mx-auto mb-6'>
+							DayFlow connects with Google Gemini to generate tasks and build your schedule for you—automatically. No more manual planning, no more endless tweaking.
+						</p>
+						<p className='text-lg text-primary font-semibold max-w-2xl mx-auto mb-8'>
+							This isn't generic AI. DayFlow's Gemini-powered engine learns your goals, habits, and priorities to create a plug-and-play schedule that actually fits your life. No refinement required.
+						</p>
+					</motion.div>
+					<div className='grid md:grid-cols-2 gap-12 max-w-4xl mx-auto'>
+						<motion.div
+							className='bg-gradient-to-br from-primary/10 to-secondary/10 rounded-xl p-8 backdrop-blur border border-border/50 flex flex-col items-center justify-center'
+							initial={{ opacity: 0, x: -50 }}
+							whileInView={{ opacity: 1, x: 0 }}
+							transition={{ duration: 0.6, ease: 'easeOut' }}
+							viewport={{ once: true, margin: '-50px' }}
+						>
+							<Zap className='h-16 w-16 text-primary mb-6' />
+							<h3 className='text-2xl font-bold mb-4'>Google Gemini Integration</h3>
+							<p className='text-muted-foreground text-lg mb-2 text-center'>
+								Instantly generate tasks and a daily plan with a single click. Let Gemini do the heavy lifting—no more decision fatigue.
+							</p>
+						</motion.div>
+						<motion.div
+							className='bg-gradient-to-br from-primary/10 to-secondary/10 rounded-xl p-8 backdrop-blur border border-border/50 flex flex-col items-center justify-center'
+							initial={{ opacity: 0, x: 50 }}
+							whileInView={{ opacity: 1, x: 0 }}
+							transition={{ duration: 0.6, ease: 'easeOut' }}
+							viewport={{ once: true, margin: '-50px' }}
+						>
+							<Target className='h-16 w-16 text-primary mb-6' />
+							<h3 className='text-2xl font-bold mb-4'>Truly Personalized Planning</h3>
+							<p className='text-muted-foreground text-lg mb-2 text-center'>
+								Your schedule is built around your real goals, habits, and priorities. No more plug-and-pray—just plug and play. No refinement needed.
+							</p>
 						</motion.div>
 					</div>
 				</div>
