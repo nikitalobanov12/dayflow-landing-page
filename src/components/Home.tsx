@@ -718,12 +718,12 @@ export function Home() {
 								<div className='text-center mb-8'>
 									<h3 className='text-2xl font-bold mb-2'>DayFlow Pro</h3>
 									<div className='flex items-baseline justify-center gap-2 mb-4'>
-										<span className='text-4xl font-bold'>$34</span>
+										<span className='text-4xl font-bold'>$15</span>
 										<span className='text-muted-foreground'>/month</span>
 									</div>
 									<div className='text-center'>
 										<span className='text-sm text-muted-foreground'>or </span>
-										<span className='text-lg font-semibold text-green-600'>$24/month billed yearly</span>
+										<span className='text-lg font-semibold text-green-600'>$10/month billed yearly</span>
 									</div>
 									<p className='text-muted-foreground mt-2'>The complete AI life management system for ambitious achievers</p>
 								</div>
