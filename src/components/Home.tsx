@@ -12,9 +12,11 @@ import {
 } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useState, useEffect } from 'react';
+import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 
 export function Home() {
 	const [isMobile, setIsMobile] = useState(false);
+	const [billingCycle, setBillingCycle] = useState('monthly');
 
 	useEffect(() => {
 		const checkMobile = () => setIsMobile(window.innerWidth < 768);
@@ -68,15 +70,46 @@ export function Home() {
 		}
 	];
 
-	const pricingFeatures = [
-		'AI Life Architect - Intelligent daily planning',
-		'Unlimited goals, tasks, and projects',
-		'Advanced AI scheduling with goal alignment',
-		'Sprint Mode for deep work sessions',
-		'Google Calendar integration',
-		'Goal progress tracking & analytics',
-		'Habit building & routine automation',
-		'Priority-based task management'
+	const pricingPlans = [
+		{
+			name: 'DayFlow Free',
+			cost: '$0',
+			period: '/month',
+			description: 'Full productivity features with a limited number of AI requests per month.',
+			features: [
+				'Unlimited tasks, goals & projects',
+				'Full Kanban workflow system',
+				'Calendar View for planning your day',
+				'Sprint Mode & Focus sessions',
+				'Google Calendar integration',
+				'Complete timer & analytics',
+				'30 AI requests per month',
+				'Free onboarding quiz',
+			],
+			badge: null,
+		},
+		{
+			name: 'DayFlow Pro',
+			features: [
+				'AI Life Architect - Intelligent daily planning',
+				'Unlimited goals, tasks, and projects',
+				'Advanced AI scheduling with goal alignment',
+				'Sprint Mode for deep work sessions',
+				'Google Calendar integration',
+				'Advanced analytics and insights',
+				'Goal-driven task prioritization',
+				'Habit tracking and automation',
+				'Priority support',
+				'Full unrestricted access to AI features',
+			],
+			monthlyCost: '$15',
+			monthlyPeriod: '/month',
+			monthlyDescription: 'The complete AI life management system for ambitious achievers.',
+			yearlyCost: '$120',
+			yearlyPeriod: '/year',
+			yearlyDescription: 'Best value for serious achievers, saving $60/year with annual billing.',
+			badge: 'Most Popular',
+		},
 	];
 
 	const testimonials = [
@@ -699,79 +732,88 @@ export function Home() {
 						<Badge variant='secondary' className='mb-4'>Simple Pricing</Badge>
 						<h2 className='text-3xl md:text-4xl font-bold mb-4'>One Plan. All Features. No Limits.</h2>
 						<p className='text-xl text-muted-foreground max-w-2xl mx-auto'>
-							Get the complete AI life management system for less than a coffee per day.
+							Get the complete AI life management system for ambitious achievers, without the complexity.
 						</p>
 					</motion.div>
 
 					<motion.div
-						className='max-w-md mx-auto'
+						className='max-w-6xl mx-auto'
 						initial={{ opacity: 0, y: 50 }}
 						whileInView={{ opacity: 1, y: 0 }}
 						transition={{ duration: 0.6, ease: 'easeOut' }}
 						viewport={{ once: true, margin: '-50px' }}
 					>
-						<Card className='relative overflow-hidden transition-all duration-300 hover:shadow-xl border-2 border-primary'>
-							<div className='absolute top-4 right-4'>
-								<Badge className='bg-primary text-primary-foreground'>Most Popular</Badge>
-							</div>
-							<CardContent className='p-8'>
-								<div className='text-center mb-8'>
-									<h3 className='text-2xl font-bold mb-2'>DayFlow Pro</h3>
-									<div className='flex items-baseline justify-center gap-2 mb-4'>
-										<span className='text-4xl font-bold'>$15</span>
-										<span className='text-muted-foreground'>/month</span>
-									</div>
-									<div className='text-center'>
-										<span className='text-sm text-muted-foreground'>or </span>
-										<span className='text-lg font-semibold text-green-600'>$10/month billed yearly</span>
-									</div>
-									<p className='text-muted-foreground mt-2'>The complete AI life management system for ambitious achievers</p>
-								</div>
+						<div className='flex justify-center mb-8'>
+							<ToggleGroup
+								type='single'
+								value={billingCycle}
+								onValueChange={setBillingCycle}
+								className='bg-muted rounded-lg p-1'
+							>
+								<ToggleGroupItem value='monthly' className='px-6 py-2 text-base data-[state=on]:bg-primary data-[state=on]:text-primary-foreground data-[state=on]:shadow-sm'>Monthly</ToggleGroupItem>
+								<ToggleGroupItem value='yearly' className='px-6 py-2 text-base data-[state=on]:bg-primary data-[state=on]:text-primary-foreground data-[state=on]:shadow-sm'>Yearly <Badge variant='secondary' className='ml-2 text-primary-foreground bg-green-500'>Save $60</Badge></ToggleGroupItem>
+							</ToggleGroup>
+						</div>
+						<div className='grid md:grid-cols-2 gap-8 max-w-4xl mx-auto'>
+							{pricingPlans.map((plan) => (
+								<Card key={plan.name} className={`relative overflow-hidden transition-all duration-300 hover:shadow-xl ${plan.badge && plan.name === 'DayFlow Pro' && billingCycle === 'yearly' ? 'border-2 border-primary' : ''}`}>
+									{plan.badge && plan.name === 'DayFlow Pro' && billingCycle === 'yearly' && (
+										<div className='absolute top-4 right-4'>
+											<Badge className='bg-primary text-primary-foreground'>{plan.badge}</Badge>
+										</div>
+									)}
+									<CardContent className='p-8'>
+										<div className='text-center mb-8'>
+											<h3 className='text-2xl font-bold mb-2'>{plan.name}</h3>
+											<div className='flex items-baseline justify-center gap-2 mb-4'>
+												<span className='text-4xl font-bold'>
+													{plan.name === 'DayFlow Pro' ? 
+														billingCycle === 'monthly' ? plan.monthlyCost : plan.yearlyCost
+													: plan.cost}
+												</span>
+												<span className='text-muted-foreground'>
+													{plan.name === 'DayFlow Pro' ? 
+														billingCycle === 'monthly' ? plan.monthlyPeriod : plan.yearlyPeriod
+													: plan.period}
+												</span>
+											</div>
+											{plan.name === 'DayFlow Pro' && billingCycle === 'yearly' && (
+												<div className='text-center'>
+													<span className='text-sm text-muted-foreground'>or </span>
+													<span className='text-lg font-semibold text-green-600'>$10/month billed yearly</span>
+												</div>
+											)}
+											<p className='text-muted-foreground mt-2'>
+												{plan.name === 'DayFlow Pro' ? 
+													billingCycle === 'monthly' ? plan.monthlyDescription : plan.yearlyDescription
+												: plan.description}
+											</p>
+										</div>
 
-								<div className='space-y-3 mb-8'>
-									{pricingFeatures.map((feature, index) => (
-										<motion.div
-											key={feature}
-											className='flex items-center gap-3'
-											initial={{ opacity: 0, x: isMobile ? 0 : -20 }}
-											whileInView={{ opacity: 1, x: 0 }}
-											transition={{
-												duration: 0.4,
-												delay: index * 0.05,
-												ease: 'easeOut',
-											}}
-											viewport={{ once: true }}
-										>
-											<Check className='h-4 w-4 text-green-500 flex-shrink-0' />
-											<span className='text-sm'>{feature}</span>
-										</motion.div>
-									))}
-								</div>
+										<div className='space-y-3 mb-8'>
+											{plan.features.map((feature, featureIndex) => (
+												<motion.div
+													key={feature}
+													className='flex items-center gap-3'
+													initial={{ opacity: 0, x: isMobile ? 0 : -20 }}
+													whileInView={{ opacity: 1, x: 0 }}
+													transition={{
+														duration: 0.4,
+														delay: featureIndex * 0.05,
+														ease: 'easeOut',
+													}}
+													viewport={{ once: true }}
+												>
+													<Check className='h-4 w-4 text-green-500 flex-shrink-0' />
+													<span className='text-sm'>{feature}</span>
+												</motion.div>
+											))}
+										</div>
 
-								<motion.div
-									whileHover={{ scale: 1.05 }}
-									whileTap={{ scale: 0.95 }}
-								>
-									<Button
-										asChild
-										className='w-full'
-										size='lg'
-									>
-										<a
-											href='https://app.dayflow.ca'
-											target='_blank'
-											rel='noopener noreferrer'
-										>
-											<Monitor className='h-4 w-4 mr-2' />
-											Try DayFlow for Free
-										</a>
-									</Button>
-								</motion.div>
-								<p className='text-xs text-center text-muted-foreground mt-3'>
-									Start free trial • No credit card required • Cancel anytime
-								</p>
-							</CardContent>
-						</Card>
+										</CardContent>
+								</Card>
+							))}
+						</div>
 					</motion.div>
 				</div>
 			</section>
