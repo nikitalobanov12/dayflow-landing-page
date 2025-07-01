@@ -852,7 +852,7 @@ export function Home() {
 							</Button>
 						</motion.div>
 						<p className='text-sm text-muted-foreground mt-4'>
-							Free trial • No credit card required • Transform your goals into reality
+							Free • No credit card required • Transform your goals into reality
 						</p>
 					</motion.div>
 				</div>
